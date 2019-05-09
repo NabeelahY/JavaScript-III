@@ -170,6 +170,15 @@ Humanoid.prototype.greet = function () {
     return this.healthPoints;
   }
 
+  function playGame() {
+    const points = Math.floor(Math.random() * Math.floor(10));
+    while (goodGuy.healthPoints > 0 && badGuy.healthPoints > 0) {
+      console.log('Points removed:',points);
+      console.log(goodGuy.protect(points));
+      console.log(badGuy.fight(points));
+    }
+  }
+  setInterval(playGame, 3000);
 
   const badGuy = new Villain({
     createdAt: new Date(),
@@ -178,7 +187,7 @@ Humanoid.prototype.greet = function () {
       width: 4,
       height: 5,
     },
-    healthPoints: 15,
+    healthPoints: 12,
     name: 'Thanos',
     team: 'Galantis',
     weapons: [
@@ -204,15 +213,3 @@ Humanoid.prototype.greet = function () {
     ],
     language: 'English',
   });
-
-function playGame() {
-  const points = Math.floor(Math.random() * Math.floor(10));
-  while (goodGuy.healthPoints > 0 && badGuy.healthPoints > 0) {
-    console.log('Points removed:',points);
-    console.log(goodGuy.protect(points));
-    console.log(badGuy.fight(points));
-  }
-}
-setInterval(playGame, 3000);
-
-  
