@@ -141,3 +141,78 @@ Humanoid.prototype.greet = function () {
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  // has parameters for each fighters healthpoint
+  
+  function Villain (villain) {
+    Humanoid.call(this, villain);
+  }
+  Villain.prototype = Object.create(Humanoid.prototype);
+  
+  Villain.prototype.fight = function (receiveHits) {
+    this.healthPoints = this.healthPoints - receiveHits;
+    if (this.healthPoints <= 0) {
+      return this.destroy();
+    }
+    return this.healthPoints;
+  }
+
+  function Hero (hero) {
+    Humanoid.call(this, hero);
+  }
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.protect = function (receiveHits) {
+    this.healthPoints = this.healthPoints - receiveHits;
+    if (this.healthPoints <= 0) {
+      return this.destroy();
+    }
+    return this.healthPoints;
+  }
+
+
+  const badGuy = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 5,
+      width: 4,
+      height: 5,
+    },
+    healthPoints: 15,
+    name: 'Thanos',
+    team: 'Galantis',
+    weapons: [
+      'Gauntlet',
+      'Stones',
+    ],
+    language: 'Evil',
+  });
+
+  const goodGuy = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 10,
+    name: 'Tony',
+    team: 'Avengers',
+    weapons: [
+      'Iron suit',
+      'Sarcasm',
+    ],
+    language: 'English',
+  });
+
+function playGame() {
+  const points = Math.floor(Math.random() * Math.floor(10));
+  while (goodGuy.healthPoints > 0 && badGuy.healthPoints > 0) {
+    console.log('Points removed:',points);
+    console.log(goodGuy.protect(points));
+    console.log(badGuy.fight(points));
+  }
+}
+setInterval(playGame, 3000);
+
+  
